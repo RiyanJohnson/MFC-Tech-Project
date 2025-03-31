@@ -6,7 +6,7 @@
   <meta name="description" content="Chatbot interface with a modern dark theme." />
   <link rel="icon" href="/static/favicon.ico" />
   <title>Chatbot</title>
-  <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -16,7 +16,8 @@
 
     body {
       font-family: 'Product Sans', sans-serif;
-      background: #050a30;
+      background: url("images/background.png") no-repeat center center fixed;
+      background-size: cover;
       color: #e0e0e0;
       display: flex;
       flex-direction: column;
@@ -26,7 +27,7 @@
     .chat-header {
       background: rgba(15, 15, 15, 0.95);
       color: white;
-      padding: 10px 15px;
+      padding: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -42,7 +43,7 @@
       color: #00cfc8;
       font-size: 0.85rem;
       display: inline-block;
-      transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+      transition: color 0.3s ease, transform 0.2s ease;
     }
 
     .chat-header a:hover {
@@ -159,7 +160,7 @@
       height: 100%;
       width: 100%;
       opacity: 0;
-      pointer-events: none; /* ✅ Allows label to receive hover */
+      pointer-events: none;
     }
 
     .custom-file-input label {
@@ -180,6 +181,15 @@
     .custom-file-input label:hover {
       background: #009f9a;
       transform: scale(1.05);
+    }
+
+    /* Credits Footer */
+    footer.creators {
+      background-color: rgba(15, 15, 15, 0.95);
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
@@ -240,5 +250,10 @@
       fileLabel.textContent = fileName;
     });
   </script>
+
+  <!-- Credits Footer -->
+  <footer class="creators">
+    Created by: S Adithya Nachiyappan, Riyan Johnson, Jaivarshan V
+  </footer>
 </body>
 </html>
