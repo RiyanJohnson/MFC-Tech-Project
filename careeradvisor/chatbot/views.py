@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .forms import ChatForm
-from django.http import JsonResponse
 import PyPDF2
 
 def home(request):
@@ -35,7 +34,7 @@ def chatbot(request):
                 elif chat.file.name.endswith('.txt'):
                     extracted_text = extract_text_from_txt(chat.file)
 
-            chat.message = form.cleaned_data.get('message','').strip() + extracted_text
+            chat.message = ''+form.cleaned_data.get('message','').strip() + extracted_text
 
             response_text = "Hi"
 
