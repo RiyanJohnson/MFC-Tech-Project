@@ -14,7 +14,8 @@
 
     body {
       font-family: 'Product Sans', sans-serif;
-      background: #050a30;
+      background: url("images/background.png") no-repeat center center fixed;
+      background-size: cover;
       color: #e0e0e0;
       display: flex;
       flex-direction: column;
@@ -28,7 +29,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: none;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
@@ -70,7 +70,7 @@
     .message.user {
       align-self: flex-end;
       background: linear-gradient(135deg, #8A2BE2, #4B0082);
-      color: white;
+      color: #ffffff;
     }
 
     .message.bot {
@@ -131,6 +131,15 @@
       background: #009f9a;
       transform: scale(1.05);
     }
+
+    /* Credits Footer */
+    footer.creators {
+      background-color: rgba(15, 15, 15, 0.95);
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
+    }
   </style>
 </head>
 <body>
@@ -167,12 +176,15 @@
       const chatMessages = document.getElementById('chat-messages');
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-
     window.onload = scrollToBottom;
-
     document.querySelector('.chat-input-container').addEventListener('submit', function () {
       setTimeout(scrollToBottom, 100);
     });
   </script>
+
+  <!-- Credits Footer -->
+  <footer class="creators">
+    Created by: S Adithya Nachiyappan, Riyan Johnson, Jaivarshan V
+  </footer>
 </body>
 </html>
