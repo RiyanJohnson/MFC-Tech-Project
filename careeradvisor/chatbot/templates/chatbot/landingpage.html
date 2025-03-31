@@ -44,15 +44,17 @@
         }
 
         nav ul li a {
-            text-decoration: none;
-            color: #e0e0e0;
-            font-size: 0.9rem; /* Reduced font size */
-            transition: color 0.3s ease-in-out;
-        }
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  display: inline-block; /* Ensures transform works */
+}
 
-        nav ul li a:hover {
-            color: #00cfc8; /* Aquamarine hover color */
-        }
+nav ul li a:hover {
+  color: #00cfc8;
+  transform: scale(1.15);
+}
 
         .container {
             max-width: 1000px; /* Reduced width for compact layout */
@@ -79,6 +81,7 @@
             margin-bottom: 20px; /* Reduced margin */
             color: #a0a0a0;
         }
+        
 
         .hero-section button {
             padding: 8px 16px; /* Reduced button size for compactness */
@@ -100,6 +103,13 @@
             color: #d0d0d0; /* Light gray error message text */
             margin-top: 10px; /* Reduced margin for compactness */
         }
+        .hero-section form {
+             display: flex;
+            justify-content: center;
+            gap: 16px; /* Adjust this value for more or less space */
+            flex-wrap: wrap;
+            margin-top: 10px;
+}
     </style>
 </head>
 <body>
@@ -121,22 +131,22 @@
         
       <!-- Hero Section -->
       <div class="hero-section">
-          <h2>Find Your Dream Career Today!</h2>
-          <p>Our application helps you assess your skills, interests, and goals to find the career that's right for you.</p>
+          <h2>Find Your Dream Career Today !</h2>
+          <p>We simplify career exploration by aligning your talents and ambitions with the opportunities that fit you best.</p>
 
           <!-- Check if user is logged in -->
           {% if user.is_authenticated %}
               <!-- Redirect to chatbot if logged in -->
               <form>
-                  <button formaction="{% url 'chatbot' %}">Upload Your Resume</button>
-                  <button formaction="{% url 'interests' %}">Let Us Know Your Interests</button>
+                  <button formaction="{% url 'chatbot' %}" title="Upload your resume">Your Resume</button>
+                  <button formaction="{% url 'interests' %}"> Your Interests</button>
               </form>
           {% else %}
               <!-- Show error message if not logged in -->
               <form>
                   <button formaction="{% url 'login' %}">Login</button>
               </form>
-              <p class="error-message">Please login to get started.</p>
+              <p class="error-message">Login to get started.</p>
           {% endif %}
       </div>
 
