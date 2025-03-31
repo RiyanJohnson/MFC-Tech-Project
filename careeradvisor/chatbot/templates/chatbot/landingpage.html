@@ -1,156 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Advisor Application</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Product Sans', sans-serif;
-            background: linear-gradient(135deg, #0a0f3d, #000000); /* Gradient from dark blue to black */
-            color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        nav {
-            background-color: rgba(30, 30, 30, 0.9); /* Semi-transparent navbar */
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        nav .logo {
-            font-size: 1.2rem;
-            color: #00cfc8; /* Aquamarine logo color */
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style-type: none;
-            display: flex;
-            gap: 20px; /* Reduced gap for compact look */
-        }
-
-        nav ul li a {
-  text-decoration: none;
-  color: #e0e0e0;
-  font-size: 0.9rem;
-  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
-  display: inline-block; /* Ensures transform works */
-}
-
-nav ul li a:hover {
-  color: #00cfc8;
-  transform: scale(1.15);
-}
-
-        .container {
-            max-width: 1000px; /* Reduced width for compact layout */
-            margin: auto;
-            padding: 20px; /* Reduced padding */
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 30px; /* Reduced padding for compactness */
-            background-color: rgba(30, 30, 30, 0.9); /* Semi-transparent hero section */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            border-radius: 8px; /* Slightly rounded corners */
-        }
-
-        .hero-section h2 {
-            font-size: 1.8rem; /* Reduced font size for compactness */
-            margin-bottom: 15px; /* Reduced margin */
-            color: #00cfc8; /* Aquamarine heading color */
-        }
-
-        .hero-section p {
-            font-size: 1rem; /* Reduced font size */
-            margin-bottom: 20px; /* Reduced margin */
-            color: #a0a0a0;
-        }
-        
-
-        .hero-section button {
-            padding: 8px 16px; /* Reduced button size for compactness */
-            font-size: 1rem;
-            color: #121212;
-            background-color: #137dc5; /* True blue button background */
-            border-radius: 6px; /* Slightly rounded corners for buttons */
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-        .hero-section button:hover {
-            background-color: #0f4d92; /* Slightly darker blue on hover */
-            transform: scale(1.05); /* Slight scaling effect on hover */
-        }
-
-        .error-message {
-            color: #d0d0d0; /* Light gray error message text */
-            margin-top: 10px; /* Reduced margin for compactness */
-        }
-        .hero-section form {
-             display: flex;
-            justify-content: center;
-            gap: 16px; /* Adjust this value for more or less space */
-            flex-wrap: wrap;
-            margin-top: 10px;
-}
-    </style>
+  <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Advisor Application</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Product Sans', sans-serif;
+      background: url("images/background.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    nav {
+      background-color: rgba(30, 30, 30, 0.9);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    nav .logo {
+      font-size: 1.2rem;
+      color: #00cfc8;
+      font-weight: bold;
+    }
+    
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: #e0e0e0;
+      font-size: 0.9rem;
+      transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+      display: inline-block;
+    }
+    
+    nav ul li a:hover {
+      color: #00cfc8;
+      transform: scale(1.15);
+    }
+    
+    /* Container now centers the content vertically and horizontally */
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .hero-section {
+      text-align: center;
+      padding: 30px;
+      background-color: rgba(30, 30, 30, 0.9);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+    
+    .hero-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #00cfc8;
+    }
+    
+    .hero-section p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #a0a0a0;
+    }
+    
+    .hero-section button {
+      padding: 8px 16px;
+      font-size: 1rem;
+      color: #121212;
+      background-color: #137dc5;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+    
+    .hero-section button:hover {
+      background-color: #0f4d92;
+      transform: scale(1.05);
+    }
+    
+    .hero-section form {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    
+    .error-message {
+      color: #d0d0d0;
+      margin-top: 10px;
+    }
+    
+    /* Creators Footer */
+    footer.creators {
+      background-color: rgba(15, 15, 15, 0.95);
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar Section -->
-    <nav>
-      <div class="logo">Career Advisor</div>
-      <ul>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Logout</a></li>
-          {% else %}
-          <li><a href="{% url 'register' %}">Register</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          {% endif %}
-      </ul>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-        
-      <!-- Hero Section -->
-      <div class="hero-section">
-          <h2>Find Your Dream Career Today !</h2>
-          <p>We simplify career exploration by aligning your talents and ambitions with the opportunities that fit you best.</p>
-
-          <!-- Check if user is logged in -->
-          {% if user.is_authenticated %}
-              <!-- Redirect to chatbot if logged in -->
-              <form>
-                  <button formaction="{% url 'chatbot' %}" title="Upload your resume">Your Resume</button>
-                  <button formaction="{% url 'interests' %}"> Your Interests</button>
-              </form>
-          {% else %}
-              <!-- Show error message if not logged in -->
-              <form>
-                  <button formaction="{% url 'login' %}">Login</button>
-              </form>
-              <p class="error-message">Login to get started.</p>
-          {% endif %}
-      </div>
-
+  <!-- Navbar Section -->
+  <nav>
+    <div class="logo">Career Advisor</div>
+    <ul>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+        <li><a href="{% url 'register' %}">Register</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <h2>Find Your Dream Career Today!</h2>
+      <p>We simplify career exploration by aligning your talents and ambitions with the opportunities that fit you best.</p>
+      {% if user.is_authenticated %}
+        <!-- Redirect to chatbot if logged in -->
+        <form>
+          <button formaction="{% url 'chatbot' %}" title="Upload your resume">Your Resume</button>
+          <button formaction="{% url 'interests' %}">Your Interests</button>
+        </form>
+      {% else %}
+        <!-- Show error message if not logged in -->
+        <form>
+          <button formaction="{% url 'login' %}">Login</button>
+        </form>
+        <p class="error-message">Login to get started.</p>
+      {% endif %}
     </div>
-
+  </div>
+  
+  <!-- Creators Footer -->
+  <footer class="creators">
+    Created by: S Adithya Nachiyappan, Riyan Johnson, Jaivarshan V
+  </footer>
 </body>
 </html>
