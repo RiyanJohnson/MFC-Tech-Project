@@ -1,0 +1,22 @@
+Course Registration: 
+
+FIRST SEMESTER 
+ > Computer Programming: Python (ETL) - 3   (1 + 2)
+ > BEEE (TH + Lab)                    - 4   (3 + 1)
+ > Calculus (TH + Lab)                - 4   (3 + 1)
+ > Engineering Physics (TH + LAB)     - 4   (3 + 1)
+ > Qualitative Skills 1               - 1.5 (2 + 0)
+ > ITE                                - 1
+TOTAL CREDITS - 17.5
+
+SECOND SEMESTER 
+ > Engineering Chemistry (TH + Lab)                       - 4   (3 + 1)
+ > Structured and Object Oriented Programming (TH + Lab)  - 4   (2 + 2)
+ > Technical English Communication (TH + Lab)             - 3   (2 + 1)
+ > Differential Equations and transforms                  - 4   (4 + 0)
+ > Qualitative Skills practice 2                          - 1.5 (2 + 0)
+ > Digital Logic and Microprocessors (TH + Lab)           - 4   (3 + 1)
+ > Ethics and Values                                      - 2
+TOTAL CREDITS - 22.5
+
+THIRD SEMSETER

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Advisor Application</title>
@@ -13,135 +14,133 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            font-family: 'Product Sans', sans-serif;
+            background: linear-gradient(135deg, #0a0f3d, #000000); /* Gradient from dark blue to black */
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 10px;
-            text-align: center;
+        nav {
+            background-color: rgba(30, 30, 30, 0.9); /* Semi-transparent navbar */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        header h1 {
-            font-size: 2.5rem;
-        }
-
-        header p {
+        nav .logo {
             font-size: 1.2rem;
+            color: #00cfc8; /* Aquamarine logo color */
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px; /* Reduced gap for compact look */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 0.9rem; /* Reduced font size */
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #00cfc8; /* Aquamarine hover color */
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px; /* Reduced width for compact layout */
             margin: auto;
-            padding: 20px;
+            padding: 20px; /* Reduced padding */
         }
 
         .hero-section {
             text-align: center;
-            padding: 50px 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px; /* Reduced padding for compactness */
+            background-color: rgba(30, 30, 30, 0.9); /* Semi-transparent hero section */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 8px; /* Slightly rounded corners */
         }
 
         .hero-section h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem; /* Reduced font size for compactness */
+            margin-bottom: 15px; /* Reduced margin */
+            color: #00cfc8; /* Aquamarine heading color */
         }
 
         .hero-section p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 1rem; /* Reduced font size */
+            margin-bottom: 20px; /* Reduced margin */
+            color: #a0a0a0;
         }
 
         .hero-section button {
-            padding: 10px 20px;
+            padding: 8px 16px; /* Reduced button size for compactness */
             font-size: 1rem;
-            color: white;
-            background-color: #4CAF50;
+            color: #121212;
+            background-color: #137dc5; /* True blue button background */
+            border-radius: 6px; /* Slightly rounded corners for buttons */
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
         }
 
-        .features {
-            display: flex;
-            gap: 20px;
-            margin-top: 40px;
+        .hero-section button:hover {
+            background-color: #0f4d92; /* Slightly darker blue on hover */
+            transform: scale(1.05); /* Slight scaling effect on hover */
         }
 
-        .feature-box {
-            flex-basis: calc(33.33% - 20px);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .feature-box h3 {
-            margin-bottom: 15px;
-        }
-
-        .feature-box p {
-            font-size: 1rem;
-        }
-
-        footer {
-            background-color: #333333;
-            color: white;
-            text-align: center;
-            padding: 10px 20px;
+        .error-message {
+            color: #d0d0d0; /* Light gray error message text */
+            margin-top: 10px; /* Reduced margin for compactness */
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>Career Advisor Application</h1>
-        <p>Your guide to discovering the perfect career path</p>
-    </header>
+    <!-- Navbar Section -->
+    <nav>
+      <div class="logo">Career Advisor</div>
+      <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'register' %}">Register</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+      </ul>
+    </nav>
 
     <!-- Main Content -->
     <div class="container">
         
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <h2>Find Your Dream Career Today!</h2>
-            <p>Our application helps you assess your skills, interests, and goals to find the career that's right for you.</p>
-            <button>Get Started</button>
-        </div>
+      <!-- Hero Section -->
+      <div class="hero-section">
+          <h2>Find Your Dream Career Today!</h2>
+          <p>Our application helps you assess your skills, interests, and goals to find the career that's right for you.</p>
 
-        <!-- Features Section -->
-        <div class="features">
-            
-            <!-- Feature Box -->
-            <div class="feature-box">
-                <h3>Personalized Guidance</h3>
-                <p>Receive tailored advice based on your unique profile.</p>
-            </div>
+          <!-- Check if user is logged in -->
+          {% if user.is_authenticated %}
+              <!-- Redirect to chatbot if logged in -->
+              <form>
+                  <button formaction="{% url 'chatbot' %}">Upload Your Resume</button>
+                  <button formaction="{% url 'interests' %}">Let Us Know Your Interests</button>
+              </form>
+          {% else %}
+              <!-- Show error message if not logged in -->
+              <form>
+                  <button formaction="{% url 'login' %}">Login</button>
+              </form>
+              <p class="error-message">Please login to get started.</p>
+          {% endif %}
+      </div>
 
-             <!-- Feature Box -->
-             <div class="feature-box">
-                <h3>Career Insights</h3>
-                <p>Explore detailed information about various career paths.</p>
-             </div>
-
-             <!-- Feature Box -->
-             <div class="feature-box">
-                <h3>Interactive Tools</h3>
-                <p>Utilize quizzes and assessments to refine your choices.</p>
-             </div>
-
-         </div>
-     </div>
-
-     <!-- Footer Section -->
-     <footer>
-         <p>&copy; Career Advisor Application | All Rights Reserved</p>
-     </footer>
+    </div>
 
 </body>
 </html>
