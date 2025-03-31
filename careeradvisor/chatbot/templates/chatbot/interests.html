@@ -1,174 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
-    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot</title>
+  <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Product Sans', sans-serif;
-            background: #050a30;
-            color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
+    body {
+      font-family: 'Product Sans', sans-serif;
+      background: #050a30;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
-        .chat-header {
-            background: rgba(15, 15, 15, 0.95);
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: none;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
+    .chat-header {
+      background: rgba(15, 15, 15, 0.95);
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
 
-        .chat-header h2 {
-            font-size: 1rem;
-        }
+    .chat-header h2 {
+      font-size: 1rem;
+    }
 
-        .chat-header a {
-            text-decoration: none;
-            color: #00cfc8;
-            font-size: 0.85rem;
-        }
+    .chat-header a {
+      text-decoration: none;
+      color: #00cfc8;
+      font-size: 0.85rem;
+      display: inline-block;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
 
-        .chat-messages {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column-reverse;
-            background: rgba(10, 10, 30, 0.8);
-            box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.3);
-        }
+    .chat-header a:hover {
+      color: #00f5ee;
+      transform: scale(1.1);
+    }
 
-        .message {
-            max-width: 65%;
-            margin-bottom: 8px;
-            padding: 10px 14px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column-reverse;
+      background: rgba(10, 10, 30, 0.8);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+    }
 
-        .message.user {
-            align-self: flex-end;
-            background: linear-gradient(135deg, #8A2BE2, #4B0082);
-            color: white;
-        }
+    .message {
+      max-width: 65%;
+      margin-bottom: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-        .message.bot {
-            align-self: flex-start;
-            background: #222;
-            color: #e0e0e0;
-        }
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #8A2BE2, #4B0082);
+      color: white;
+    }
 
-        .message-info {
-            font-size: 0.7rem;
-            margin-bottom: 2px;
-            opacity: 0.8;
-        }
+    .message.bot {
+      align-self: flex-start;
+      background: #222;
+      color: #e0e0e0;
+    }
 
-        .timestamp {
-            font-size: 0.6rem;
-            color: #bbb;
-            margin-top: 2px;
-        }
+    .message-info {
+      font-size: 0.7rem;
+      margin-bottom: 2px;
+      opacity: 0.8;
+    }
 
-        .chat-input-container {
-            display: flex;
-            padding: 12px;
-            background: rgba(15, 15, 15, 0.95);
-            border-top: none;
-            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.3);
+    .timestamp {
+      font-size: 0.6rem;
+      color: #bbb;
+      margin-top: 2px;
+    }
 
-        }
+    .chat-input-container {
+      display: flex;
+      padding: 12px;
+      background: rgba(15, 15, 15, 0.95);
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    }
 
-        .chat-input-container input {
-            flex-grow: 1;
-            padding: 12px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-            background: rgba(42, 42, 42, 0.5);
-            color: white;
-            transition: 0.3s;
-            box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
+    .chat-input-container input {
+      flex-grow: 1;
+      padding: 12px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      background: rgba(42, 42, 42, 0.5);
+      color: white;
+      transition: 0.3s;
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-        .chat-input-container input:focus {
-            border: 1px solid #00cfc8;
-            background: rgba(42, 42, 42, 0.8);
-        }
+    .chat-input-container input:focus {
+      border: 1px solid #00cfc8;
+      background: rgba(42, 42, 42, 0.8);
+    }
 
-        .chat-input-container button {
-            margin-left: 8px;
-            padding: 10px 16px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            background: #00cfc8;
-            color: #000;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
+    .chat-input-container button {
+      margin-left: 8px;
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background: #00cfc8;
+      color: #000;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-        .chat-input-container button:hover {
-            background: #009f9a;
-            transform: scale(1.05);
-        }
-    </style>
+    .chat-input-container button:hover {
+      background: #009f9a;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
-    <div class="chat-header">
-        <h2>Chatbot</h2>
-        <a href="{% url 'home' %}">Home</a>
-    </div>
+  <div class="chat-header">
+    <h2>Chatbot</h2>
+    <a href="{% url 'home' %}">Home</a>
+  </div>
 
-    <div class="chat-messages" id="chat-messages">
-        {% for chat in chats %}
-        {% if chat.response %}
+  <div class="chat-messages" id="chat-messages">
+    {% for chat in chats %}
+      {% if chat.response %}
         <div class="message bot">
-            <div class="message-info">ChatBot</div>
-            <div class="message-text">{{ chat.response }}</div>
-            <div class="timestamp">{{ chat.created_at|date:"M j, Y H:i" }}</div>
+          <div class="message-info">ChatBot</div>
+          <div class="message-text">{{ chat.response }}</div>
+          <div class="timestamp">{{ chat.created_at|date:"M j, Y H:i" }}</div>
         </div>
-        {% endif %}
-        <div class="message user">
-            <div class="message-info">{{ chat.user.username }}</div>
-            <div class="message-text">{{ chat.message }}</div>
-            <div class="timestamp">{{ chat.created_at|date:"M j, Y H:i" }}</div>
-        </div>
-        
-        {% endfor %}
-    </div>
+      {% endif %}
+      <div class="message user">
+        <div class="message-info">{{ chat.user.username }}</div>
+        <div class="message-text">{{ chat.message }}</div>
+        <div class="timestamp">{{ chat.created_at|date:"M j, Y H:i" }}</div>
+      </div>
+    {% endfor %}
+  </div>
 
-    <form method="POST" action="/chatbot/interests" enctype="multipart/form-data" class="chat-input-container">
-        {% csrf_token %}
-        <input type="text" name="message" placeholder="Type your message...">
-        <button type="submit">Send</button>
-    </form>
-    
+  <form method="POST" action="/chatbot/interests" enctype="multipart/form-data" class="chat-input-container">
+    {% csrf_token %}
+    <input type="text" name="message" placeholder="Type your message..." />
+    <button type="submit">Send</button>
+  </form>
 
-    <script>
-      function scrollToBottom() {
-          const chatMessages = document.getElementById('chat-messages');
-          chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-      window.onload = scrollToBottom;
-      document.querySelector('.chat-input-container').addEventListener('submit', function() {
-          setTimeout(scrollToBottom, 100);
-      });
-    </script>
+  <script>
+    function scrollToBottom() {
+      const chatMessages = document.getElementById('chat-messages');
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    window.onload = scrollToBottom;
+
+    document.querySelector('.chat-input-container').addEventListener('submit', function () {
+      setTimeout(scrollToBottom, 100);
+    });
+  </script>
 </body>
 </html>
