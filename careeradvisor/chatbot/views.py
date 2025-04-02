@@ -1,153 +1,131 @@
-import pandas as pd
 import os
-from crewai import Agent, Task, Crew
-from langchain_groq import ChatGroq
+from groq import Groq
 from django.shortcuts import render, redirect
 from .models import Chat, Interests
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .forms import ChatForm
-from django.http import JsonResponse
 import PyPDF2
 
-model = 'groq/llama3-8b-8192'
-llm = ChatGroq(
-        temperature=0, 
-        groq_api_key = os.getenv('GROQ_API_KEY'), 
-        model_name=model
-    )
+# Initialize Groq client directly
+client = Groq(api_key="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")
+MODEL_NAME = "llama3-70b-8192"
 
 def career_analyser_agent(message):
-    Career_Analyzer_Agent = Agent(
-    role='Career_Analyzer_Agent',
-    goal="""Analyze user-submitted resumes and suggest the best career options based on 
-        their experience, skills, and qualifications. Provide career pivot suggestions 
-        and highlight relevant job roles.""",
-    backstory="""You are an expert career analyst, skilled in parsing resumes and identifying 
-        the best career paths for users based on their skills, experience, and market demand.""",
-    verbose=True,
-    allow_delegation=False,
-    llm=llm,
-)
-    task_define_problem = Task(
-    description="""Understand and analyse the user's resume, 
-    including identifying the skills and specific projects, education, languages known .
-
-    Here is the user's resume in text form:
-    {resume}
-    """.format(resume=message),
-agent=Career_Analyzer_Agent,
-expected_output="A clear and concise summary , skills of the given resume and also provide career pivot suggestions and highlight relevant job roles."
-)
-    crew1 = Crew(
-    agents=[Career_Analyzer_Agent], 
-    tasks=[task_define_problem], 
-    verbose=False
-)
-    return crew1.kickoff1
-
+    """Analyze resumes using direct Groq API calls"""
+    try:
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": """You are an expert career analyst. Analyze resumes and 
+                    suggest career options based on skills and experience."""
+                },
+                {
+                    "role": "user",
+                    "content": f"Analyze this resume:\n{message}\n\nProvide 5 job recommendations."
+                }
+            ],
+            model=MODEL_NAME,
+            temperature=0.7,
+            max_tokens=1024
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"API Error: {str(e)}"
 
 def task_generate_resources(message):
-    Skill_Builder_Agent = Agent(
-    role='Skill_Builder_Agent',
-    goal="""Recommend personalized learning resources based on user-inputted interests. 
-        Suggest online courses, certifications, and skill-building activities relevant 
-        to their career goals.""",
-    backstory="""You are a knowledgeable learning advisor, adept at curating the best educational 
-        resources to help users upskill and achieve their career aspirations.""",
-    verbose=True,
-    allow_delegation=False,
-    llm=llm,
-)
-
-
-    task_generate_resources = Task(
-    description="""Generate personalized learning resources based on the user's specified interests and preferences,
-        including relevant online courses, tutorials, documentation, books, and practice projects
-
-        Here are the user's interests:
-        {interests}
-        """.format(interests=message),
-        agent=Skill_Builder_Agent,
-        expected_output="Curated list of learning resources including online courses, tutorials, documentation, books, and practice projects, tailored to the user's interests and skill level, plus a brief learning path recommendation."
-)
-
-
-    crew2 = Crew(
-        agents=[Skill_Builder_Agent],
-        tasks=[task_generate_resources],
-        verbose=False
-)
-    return crew2.kickoff()
-
-
-def home(request):
-    return render(request, 'chatbot/landingpage.html')
+    """Generate learning resources using direct Groq API"""
+    try:
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": """You are a learning advisor. Recommend educational 
+                    resources based on user interests."""
+                },
+                {
+                    "role": "user",
+                    "content": f"Create learning path for: {message}"
+                }
+            ],
+            model=MODEL_NAME,
+            temperature=0.5,
+            max_tokens=512
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"API Error: {str(e)}"
 
 def extract_text_from_pdf(file):
+    """Extract text from PDF files"""
     pdf_reader = PyPDF2.PdfReader(file)
-    text = ''
-    for page in pdf_reader.pages:
-        text += page.extract_text() + '\n'
-    return text
+    return '\n'.join(page.extract_text() for page in pdf_reader.pages)
 
 def extract_text_from_txt(file):
+    """Extract text from TXT files"""
     return file.read().decode('utf-8')
 
 def chatbot(request):
+    """Main chatbot view handling file uploads"""
     if request.method == 'POST':
-        form = ChatForm(request.POST,request.FILES)
+        form = ChatForm(request.POST, request.FILES)
         if form.is_valid():
             chat = form.save(commit=False)
-            chat.user = request.user 
-
-            extracted_text = "" 
-
+            chat.user = request.user
+            
             if chat.file:
                 if chat.file.name.endswith('.pdf'):
                     extracted_text = extract_text_from_pdf(chat.file)
                 elif chat.file.name.endswith('.txt'):
                     extracted_text = extract_text_from_txt(chat.file)
-
-            chat.message = ''+form.cleaned_data.get('message','').strip() + extracted_text
-            response_text = career_analyser_agent(chat.message)
-            chat.response = response_text
+                else:
+                    extracted_text = ""
+            else:
+                extracted_text = ""
+            
+            chat.message = f"{form.cleaned_data.get('message', '')}\n{extracted_text}".strip()
+            chat.response = career_analyser_agent(chat.message)
             chat.save()
-            return redirect('chatbot') 
-
+            return redirect('chatbot')
     else:
         form = ChatForm()
 
-    chats = Chat.objects.filter(user=request.user).order_by('-created_at')  
+    chats = Chat.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'chatbot/chatbot.html', {'form': form, 'chats': chats})
 
 def chatbot_interests(request):
+    """Handle learning resource requests"""
     chats = Interests.objects.filter(user=request.user)
-
+    
     if request.method == 'POST':
         message = request.POST.get('message')
         response = task_generate_resources(message)
-
-        chat = Interests(user=request.user, message=message, response=response, created_at=timezone.now)
-        chat.save()
+        Interests.objects.create(
+            user=request.user,
+            message=message,
+            response=response,
+            created_at=timezone.now()
+        )
         return redirect('interests')
+        
     return render(request, 'chatbot/interests.html', {'chats': chats})
 
+# Authentication views remain unchanged
+def home(request):
+    return render(request, 'chatbot/landingpage.html')
+
 def login(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        user = auth.authenticate(request, username=username, password=password)
-        if user is not None:
+        user = auth.authenticate(username=username, password=password)
+        if user:
             auth.login(request, user)
             return redirect('home')
-        else:
-            error_message = 'Invalid username or password'
-            return render(request, 'chatbot/login.html', {'error_message': error_message})
-        
-    else:
-        return render(request, 'chatbot/login.html')
+        return render(request, 'chatbot/login.html', {'error_message': 'Invalid credentials'})
+    return render(request, 'chatbot/login.html')
 
 def register(request):
     if request.method == 'POST':
@@ -155,23 +133,19 @@ def register(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-
-        if password1==password2:
+        
+        if password1 == password2:
             try:
                 user = User.objects.create_user(username, email, password1)
-                user.save()
                 auth.login(request, user)
                 return redirect('home')
             except:
-                error_message = 'Error creating account'
-            return render(request, 'chatbot/register.html', {'error_message': error_message})
-        else:
-            error_message = "Password don't match" 
-            return render(request, 'chatbot/register.html', {'error_message': error_message})
+                return render(request, 'chatbot/register.html', 
+                           {'error_message': 'Account creation failed'})
+        return render(request, 'chatbot/register.html', 
+                    {'error_message': 'Password mismatch'})
     return render(request, 'chatbot/register.html')
 
 def logout(request):
     auth.logout(request)
     return redirect('home')
-
-
