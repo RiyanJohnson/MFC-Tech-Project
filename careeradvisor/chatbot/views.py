@@ -42,13 +42,17 @@ def task_generate_resources(message):
             messages=[
                 {
                     "role": "system",
-                    "content": """You are a learning advisor. Recommend educational 
-                    resources based on user interests."""
+                    "content": """You are a learning advisory exper and an expert in optimizing outputs. Recommend educational 
+                    resources based on user interests.
+                    Provide relevant and useful answers.
+                    Output has to be generated with proper formatting for Django and HTML.
+                 
+                    
+                    """
                 },
                 {
                     "role": "user",
-                    "content": f"Create learning path for: {message}"
-                }
+                    "content": f"Create learning path for: {message} with proper formatting like the output will be displayed in a webpage and the output will be returned to a django file."}
             ],
             model=MODEL_NAME,
             temperature=0.5,
