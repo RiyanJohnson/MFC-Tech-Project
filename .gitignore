@@ -1,3 +1,4 @@
 /careeradvisor/media/uploads
 
 djangoenv/
+__pycache__/
